@@ -2,17 +2,17 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-# Install system dependencies for Pillow and ffmpeg (for yt-dlp)
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
     libjpeg-dev \
     zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
+COPY server/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY server/ .
 
 EXPOSE 8000
 
